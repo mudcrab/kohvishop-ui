@@ -59,8 +59,46 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
-
+body {
+    width: 100%;
+    height: 100%;
+}
+#container {
+    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    color: #737373;
+}
+#shop_items {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 70%;
+    height: 100%;
+}
+#shop_cart {
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    width: 30%;
+    min-width: 300px;
+    height: 100%;
+    border-left: 1px solid #ddd;
+}
+.shop_titlebar {
+    border-bottom: 1px solid #ddd;
+    font-size: 1.1em;
+    padding: 12px;
+}
+#shop_total {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    width: 30%;
+    min-width: 300px;
+    border-top: 1px solid #ddd;
+}
+#shop_total .shop_titlebar {
+    border: none;
+}
 
 
 
