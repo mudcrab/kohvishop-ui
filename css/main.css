@@ -99,6 +99,19 @@ body {
     z-index: 10;
     background: #fff;
 }
+.shop_total {
+    float: right;
+    font-weight: 600;
+    font-size: 1.1em;
+    padding-top: 12px;
+    padding-right: 12px;
+}
+.shop_total_text {
+
+}
+.shop_total_currency {
+    color: #ed145b;
+}
 #shop_title {
     position: fixed;
     width: 30%;
@@ -107,6 +120,7 @@ body {
 }
 #shop_total .shop_titlebar {
     border: none;
+    float: left;
 }
 #shop_cart_items {
     margin: 0px;
@@ -122,6 +136,20 @@ body {
     padding: 12px;
     z-index: 1;
 }
+.shop_cart_item:hover {
+    background: #f3f3f3;
+}
+.shop_cart_item_text {
+    float: left;
+}
+.shop_cart_item_price {
+    float: right;
+}
+.shop_cart_item_action {
+    float: right;
+    margin-left: 10px;
+    font-weight: 600;
+}
 #shop_items_holder {
     list-style: none;
     padding: 0px;
@@ -132,23 +160,63 @@ body {
     height: 150px;
     margin: 20px;
     border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
 }
 .shop_item_pic {
     width: 150px;
     height: 150px;
     float: left;
-    background: #ddd;
+    border: 1px solid #ddd;
 }
 .shop_item_content {
     float: left;
-    background: #eee;
     height: 150px;
+    padding: 5px 10px;
+}
+.shop_item_content_texts {
+    height: 105px;
+}
+.shop_item_content h1 {
+    margin: 0px;
+    padding: 0px;
+    font-size: 1.1em;
+    font-weight: 600;
+}
+.shop_item_content p {
+    margin: 0px;
+    padding: 0px;
+    font-size: 0.9em;
 }
 .shop_item_price {
     float: right;
     width: 150px;
     height: 150px;
-    background: #3d3d3d;
+    text-align: center;
+    color: #4f4f4f;
+}
+.shop_item_price div {
+    padding: 0px;
+    margin: 0px;
+    margin-top: -10px;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+.shop_item_number {
+    font-size: 5em;
+}
+.shop_item_currency {
+    font-size: 1.7em;
+}
+.general_button {
+    background: #f3f3f3;
+    border: 1px solid #ddd;
+    font-size: 1.1em;
+    font-weight: 400;
+    padding: 5px 10px;
+}
+.general_button:hover {
+    background: #f0f0f0;
+    border-color: #ccc;
 }
 .clear {
     clear: both;
