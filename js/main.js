@@ -18,33 +18,7 @@ kohvishop.config = {
 							'</div>' +
 							'<div class="clear"></div>' +
 						'</div>' + 
-					'</div>',
-	CART_ITEM_HTML: '<li class="shop_cart_item">' +
-						'<div class="shop_cart_item_text"></div>' +
-						'<div class="shop_cart_item_action">—</div>' +
-						'<div class="shop_cart_item_price"></div>' +
-						'<div class="clear"></div>' +
-					'</li>',
-	MAIN_ITEM_HTML: '<li class="shop_item">' +
-						'<div class="shop_item_pic"></div>' +
-						'<div class="shop_item_content">' +
-							'<div class="shop_item_content_texts">' +
-								'<h1></h1>' +
-								'<p></p>' +
-							'</div>' +
-							'<div class="shop_item_content_action">' +
-								'<span class="general_button">ROHKEM</span>' +
-							'</div>' +
-						'</div>' +
-						'<div class="shop_item_price">' +
-							'<div>' +
-								'<span class="shop_item_number"></span>' +
-								'<span class="shop_item_currency">€</span>' +
-							'</div>' +
-							'<span class="general_button">LISA KORVI</span>' +
-						'</div>' +
-						'<div class="clear"></div>' +
-					'</li>'
+					'</div>'
 };
 
 (function($) {
@@ -52,33 +26,55 @@ kohvishop.config = {
 
 		var settings = $.extend({
 			width: 100,
-			height: 100
+			height: 100,
+			api: 'http://localhost/'
 		}, options);
 
-
-		$('head').append('<link rel="stylesheet" href="css/main.css">');
-		$(this).append(kohvishop.config.MAIN_HTML)
 		$('#shop_cart_items').height(settings.height - 100);
-		$('#shop_items_holder').height(settings.height - 50);
-		for(var i = 0; i < 100; i++)
-		{
-			$('#shop_cart_items').append(kohvishop.config.CART_ITEM_HTML);
-			$('#shop_items_holder').append(kohvishop.config.MAIN_ITEM_HTML);
-		}
-		//$('#shop_items').width($('#shop_items').width() - 1);
-		// <div id="shop" style="width: 1280px; height: 800px; border: 1px solid red"></div>
+		$('#shop_items_holder').height(settings.height - 50);		
+		$(this).append(kohvishop.config.MAIN_HTML)
+		
+		var addToCart = function(title, price) {
+			var html = '<li class="shop_cart_item">' +
+						'<div class="shop_cart_item_text">' + title + '</div>' +
+						'<div class="shop_cart_item_action">—</div>' +
+						'<div class="shop_cart_item_price">' + price + ' €</div>' +
+						'<div class="clear"></div>' +
+					'</li>';
+			$('#shop_cart_items').append(html);
+		};
+
+		var addShopItem = function(title, description, price, item_id) {
+			var html = '<li class="shop_item">' +
+							'<div class="shop_item_pic"></div>' +
+							'<div class="shop_item_content">' +
+								'<div class="shop_item_content_texts">' +
+									'<h1>' + title + '</h1>' +
+									'<p>' + description + '</p>' +
+								'</div>' +
+								'<div class="shop_item_content_action">' +
+									'<span class="general_button">ROHKEM</span>' +
+								'</div>' +
+							'</div>' +
+							'<div class="shop_item_price">' +
+								'<div>' +
+									'<span class="shop_item_number">' + price + '</span>' +
+									'<span class="shop_item_currency">€</span>' +
+								'</div>' +
+								'<span class="general_button" data-item="' + item_id + '">LISA KORVI</span>' +
+							'</div>' +
+							'<div class="clear"></div>' +
+						'</li>';
+			$('#shop_items_holder').append(html);
+		};
+
+		addToCart('test', 5)
+		addShopItem('test', 'Some stuff', 100, 1);
+
 	}
 
 })(jQuery);
+var rest = {};
 $(function() {
-	$('#shop').kohvishop({ width: 1280, height: 800});
+	$('#shop').kohvishop({ width: 1280, height: 800, api: 'http://localhost:3000/'});
 });
-
-/*kohvishop.core = {
-	init: function() {
-		$('#shop_cart_items').height($(window).height() - 100);
-	},
-	resize: function() {
-		$('#shop_cart_items').height($(window).height() - 100);
-	}
-};*/
