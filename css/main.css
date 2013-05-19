@@ -62,22 +62,20 @@ textarea {
 body {
     width: 100%;
     height: 100%;
-}
-#container {
     font-family: "Open Sans", Arial, "Helvetica Neue", Helvetica, sans-serif;
     color: #737373;
 }
+#container {
+    
+    
+}
 #shop_items {
-    position: fixed;
-    left: 0px;
-    top: 0px;
-    width: 70%;
+    float: left;
+    width: 69.9%;
     height: 100%;
 }
 #shop_cart {
-    position: fixed;
-    right: 0px;
-    top: 0px;
+    float: right;
     width: 30%;
     min-width: 300px;
     height: 100%;
@@ -91,10 +89,6 @@ body {
     font-weight: 600;
 }
 #shop_total {
-    position: fixed;
-    right: 0px;
-    bottom: 0px;
-    width: 30%;
     min-width: 300px;
     border-top: 1px solid #ddd;
     z-index: 10;
@@ -114,8 +108,6 @@ body {
     color: #ed145b;
 }
 #shop_title {
-    position: fixed;
-    width: 30%;
     min-width: 300px;
     background: #fff;
 }
@@ -126,7 +118,6 @@ body {
 #shop_cart_items {
     margin: 0px;
     padding: 0px;
-    margin-top: 50px;
     list-style: none;
     overflow: auto;
     height: 100%;
@@ -156,6 +147,7 @@ body {
     padding: 0px;
     margin: 0px;
     width: 100%;
+    overflow: auto;
 }
 .shop_item {
     min-height: 150px;

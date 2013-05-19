@@ -1,71 +1,35 @@
 <!DOCTYPE html>
 <html class="no-js">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Kohvishop</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Kohvishop</title>
+		<meta name="description" content="">
+		<meta name="viewport" content="width=device-width">
 
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
-        <link rel="stylesheet" href="css/normalize.min.css">
-        <link rel="stylesheet" href="css/main.css">
+		<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600&subset=latin,cyrillic-ext' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="css/normalize.min.css">
+		<style type="text/css">
+			#shop {
+				width: 1280px;
+				height: 800px;
+				box-shadow: 0px 1px 15px rgba(85, 85, 85, 0.3);
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				margin-left: -640px;
+				margin-top: -400px;
+			}
+		</style>
 
-        <!--[if lt IE 9]>
-            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-            <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
-        <![endif]-->
-    </head>
-    <body>
-        <div id="container">
-            <div id="shop_items">
-                <div class="shop_titlebar">TOOTED</div>
-                <ul id="shop_items_holder">
-                    <li class="shop_item">
-                        <div class="shop_item_pic"></div>
-                        <div class="shop_item_content">
-                            <div class="shop_item_content_texts">
-                                <h1>See on mingi toode</h1>
-                                <p>
-                                    See on mingi kirjeldus
-                                </p>
-                            </div>
-                            <div class="shop_item_content_action">
-                                <span class="general_button">ROHKEM</span>
-                            </div>
-                        </div>
-                        <div class="shop_item_price">
-                            <div>
-                                <span class="shop_item_number">125</span>
-                                <span class="shop_item_currency">€</span>
-                            </div>
-                            <span class="general_button">LISA KORVI</span>
-                        </div>
-                        <div class="clear"></div>
-                    </li>
-                </ul>
-            </div>
-            <div id="shop_cart">
-                <div id="shop_title" class="shop_titlebar">OSTUKORV</div>
-                <ul id="shop_cart_items">
-                    <li class="shop_cart_item">
-                        <div class="shop_cart_item_text">Toode</div>
-                        <div class="shop_cart_item_action">—</div>
-                        <div class="shop_cart_item_price">5€</div>
-                        <div class="clear"></div>
-                    </li>
-                </ul>
-            </div>
-            <div id="shop_total">
-                <div class="shop_titlebar">KOKKU</div>
-                <div class="shop_total">
-                    <span class="shop_total_text">5</span>
-                    <span class="shop_total_currency">€</span>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </div>
-        <script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"><\/script>')</script>
-        <script src="js/main.js"></script>
-    </body>
+		<!--[if lt IE 9]>
+			<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+			<script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
+		<![endif]-->
+	</head>
+	<body>
+		<div id="shop"></div>
+		<script>window.jQuery || document.write('<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"><\/script>')</script>
+		<script src="js/main.js"></script>
+	</body>
 </html>
