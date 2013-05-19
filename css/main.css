@@ -82,6 +82,7 @@ body {
     min-width: 300px;
     height: 100%;
     border-left: 1px solid #ddd;
+    background: #fff;
 }
 .shop_titlebar {
     border-bottom: 1px solid #ddd;
@@ -157,7 +158,7 @@ body {
     width: 100%;
 }
 .shop_item {
-    height: 150px;
+    min-height: 150px;
     margin: 20px;
     border-bottom: 1px solid #ddd;
     padding-bottom: 20px;
@@ -170,7 +171,6 @@ body {
 }
 .shop_item_content {
     float: left;
-    height: 150px;
     padding: 5px 10px;
 }
 .shop_item_content_texts {
@@ -189,7 +189,7 @@ body {
 }
 .shop_item_price {
     float: right;
-    width: 150px;
+    min-width: 105px;
     height: 150px;
     text-align: center;
     color: #4f4f4f;
@@ -200,6 +200,7 @@ body {
     margin-top: -10px;
     margin-bottom: 7px;
     font-weight: 600;
+    height: 113px;
 }
 .shop_item_number {
     font-size: 5em;
