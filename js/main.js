@@ -1,12 +1,6 @@
-window.kohvishop = window.kohvishop || {}
-
-kohvishop.config = {
-	API_PATH: '',
-};
-
 (function($) {
 	$.fn.kohvishop = function(options) {
-		var mainHTML = '<div id="shop_items"><div class="shop_titlebar">TOOTED</div><ul id="shop_items_holder"></ul></div><div id="shop_cart"><div id="shop_title" class="shop_titlebar">OSTUKORV</div><ul id="shop_cart_items"></ul><div id="shop_total"><div class="shop_titlebar">KOKKU</div><div class="shop_total"><span class="shop_total_text">0</span><span class="shop_total_currency"> €</span></div><div class="clear"></div></div> </div>';
+		var mainHTML = '<div id="shop_items"><div class="shop_titlebar">TOOTED</div><ul id="shop_items_holder"></ul></div><div id="shop_cart"><div id="shop_title" class="shop_titlebar"><div id="cart_title">OSTUKORV</div><div id="pay">MAKSA</div><div class="clear"></div></div><ul id="shop_cart_items"></ul><div id="shop_total"><div class="shop_titlebar">KOKKU</div><div class="shop_total"><span class="shop_total_text">0</span><span class="shop_total_currency"> €</span></div><div class="clear"></div></div> </div>';
 		var settings = $.extend({
 			width: 100,
 			height: 100,
@@ -55,6 +49,10 @@ kohvishop.config = {
 		var updateTotal = function(price) {
 			var total = Number($('.shop_total_text').html());
 			total += price;
+			if(total > 0)
+				$('#pay').fadeIn();
+			else
+				$('#pay').fadeOut();
 			$('.shop_total_text').html(total);
 		};
 
@@ -74,7 +72,6 @@ kohvishop.config = {
 	}
 
 })(jQuery);
-var rest = {};
 $(function() {
 	$('#shop').kohvishop({ width: 1280, height: 800, api: 'http://localhost:3000/'});
 });

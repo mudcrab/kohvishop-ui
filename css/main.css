@@ -211,6 +211,14 @@ body {
     background: #f0f0f0;
     border-color: #ccc;
 }
+#cart_title {
+    float: left;
+}
+#pay {
+    float: right;
+    color: #ed145b;
+    display: none;
+}
 .padded {
     padding-left: 10px;
 }
