@@ -211,6 +211,9 @@ body {
     background: #f0f0f0;
     border-color: #ccc;
 }
+.padded {
+    padding-left: 10px;
+}
 .clear {
     clear: both;
 }
