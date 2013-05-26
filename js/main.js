@@ -5,36 +5,27 @@
 		var settings = $.extend({
 			width: 100,
 			height: 100,
-			api: 'http://localhost/'
+			api: 'http://localhost/',
+			currency: '€',
 		}, options);
+		var hash = null;
 		$(this).append(mainHTML);
 		$('#shop_cart_items').height(settings.height - 100);
 		$('#shop_items_holder').height(settings.height - 50);
 		
-		function unique(array) {
-			return $.grep(array,function(el,index){
-				return index == $.inArray(el,array);
-			});
-		}
-		
 		var addToCart = function(title, id, price) {
-			/*var class_ = '';
-			$('.shop_cart_item').each(function(i) {
-				if($(this).data().id == id)
-				{
-					class_ = ' padded';
-				}
-			});*/
 			var html = '<li class="shop_cart_item" data-id="' + id + '" data-title="' + title + '" data-price="' + price + '">' +
 						'<div class="shop_cart_item_text">' + title + '</div>' +
 						'<div class="shop_cart_item_action">—</div>' +
-						'<div class="shop_cart_item_price">' + price + ' €</div>' +
+						'<div class="shop_cart_item_price">' + price + ' ' + settings.currency + '</div>' +
 						'<div class="clear"></div>' +
 					'</li>';
 			if($('.shop_cart_item[data-id=' + id + ']').last().length > 0)
 				$('.shop_cart_item[data-id=' + id + ']').last().after(html);
 			else
 				$('#shop_cart_items').append(html);
+
+			items.push(id);
 		};
 
 		var addShopItem = function(title, description, price, id) {
@@ -52,7 +43,7 @@
 							'<div class="shop_item_price">' +
 								'<div>' +
 									'<span class="shop_item_number">' + price + '</span>' +
-									'<span class="shop_item_currency">€</span>' +
+									'<span class="shop_item_currency">' + settings.currency + '</span>' +
 								'</div>' +
 								'<span class="general_button" data-id="' + id + '" data-title="' + title + '" data-price="' + price + '">LISA KORVI</span>' +
 							'</div>' +
@@ -80,10 +71,25 @@
 			}
 		};
 
-		addShopItem('test', 'Some stuff', 100, 1);
+		var populateItems = function() {
+			if(window.location.hash != '' && window.location.hash != '#')
+				hash = window.location.hash.replace('#', '');
+			
+			var url = hash == null ? 'items' : 'items/category/' + hash;
+			$.get(settings.api + url, function(data) {
+				if(data.length > 0)
+				{
+					$('#shop_items_holder').empty();
+					$.each(data, function(index, item) {
+						addShopItem(item.name, item.description, item.price, item.id);
+					});
+				}
+			}, 'json');
+		};
 
-		items.push(1);
-		items.push(2);
+		$(window).on('hashchange', populateItems);
+
+		populateItems();
 
 		$(document).on('click', '.shop_item .general_button', function() {
 			var data = $(this).data();
@@ -98,13 +104,6 @@
 			$(this).parent().remove();
 			updatePadding();
 		});
-
-		addToCart("Item number 1", 1, 5);
-		addToCart("Item number 2", 1, 5);
-		addToCart("Item number 3", 1, 5);
-		addToCart("Item number 4", 2, 5);
-		updateTotal(20);
-		updatePadding();
 	}
 
 })(jQuery);
