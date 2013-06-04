@@ -14,19 +14,19 @@
 		main.append(mainHTML);
 		$('#shop_cart_items').height(settings.height - 100);
 		$('#shop_items_holder').height(settings.height - 50);
-		
+
 		var toggleCheckout = function() {
-			var html = '<div id="shop_checkout_holder">' + 
-							'<div id="shop_checkout">' + 
-								'<div id="shop_checkout_title" class="shop_titlebar">ORDER CHECKOUT <div class="cross" id="shop_checkout_close"></div><div class="clear"></div></div>' + 
+			var html = '<div id="shop_checkout_holder">' +
+							'<div id="shop_checkout">' +
+								'<div id="shop_checkout_title" class="shop_titlebar">ORDER CHECKOUT <div class="cross" id="shop_checkout_close"></div><div class="clear"></div></div>' +
 								'<div id="shop_checkout_content"><ul id="shop_credidentials_list">' +
-									'<li><p>Name</p><input class="shop_input" type="text" placeholder="Example Customer" /></li>' + 
-									'<li><p>E-mail</p><input class="shop_input" type="text" placeholder="customer@example.com" /></li>' + 
+									'<li><p>Name</p><input class="shop_input" type="text" placeholder="Example Customer" /></li>' +
+									'<li><p>E-mail</p><input class="shop_input" type="text" placeholder="customer@example.com" /></li>' +
 									'<li><p>Phone</p><input class="shop_input" type="text" placeholder="+372 133 713 37" /></li>' +
-									'<li><p>Shipping address</p><textarea class="shop_textarea" placeholder="Some address"></textarea></li>' + 
+									'<li><p>Shipping address</p><textarea class="shop_textarea" placeholder="Some address"></textarea></li>' +
 									'<li><p>Note to us</p><textarea class="shop_textarea" placeholder="Some info"></textarea></li>' +
 								'</ul><div class="clear"></div>' +
-								'<div id="shop_checkout_actions"><div id="shop_action_order" class="general_button">PLACE ORDER</div></div>' + 
+								'<div id="shop_checkout_actions"><div id="shop_action_order" class="general_button">PLACE ORDER</div></div>' +
 								'<h1 id="shop_co_thanks">THANKS</h1>'
 							'</div>' +
 						'</div>';
@@ -106,7 +106,7 @@
 		var populateItems = function() {
 			if(window.location.hash != '' && window.location.hash != '#')
 				hash = window.location.hash.replace('#', '');
-			
+
 			var url = hash == null ? 'items' : 'items/category/' + hash;
 			$.get(settings.api + url, function(data) {
 				apiItems = data;
@@ -185,5 +185,5 @@
 
 })(jQuery);
 $(function() {
-	$('#shop').kohvishop({ width: 1280, height: 800, api: 'http://localhost:3000/'});
+	$(kohvishop_tag).kohvishop({ width: 1280, height: 800, api: kohvishop_api, img: kohvishop_img });
 });
