@@ -148,5 +148,5 @@
 
 })(jQuery);
 $(function() {
-	$('#shop').kohvishop({ width: 1280, height: 800, api: kohvishop_api, img: kohvishop_img });
+	$(kohvishop_tag).kohvishop({ width: 1280, height: 800, api: kohvishop_api, img: kohvishop_img });
 });
