@@ -1,7 +1,7 @@
 (function($) {
 	$.fn.kohvishop = function(options) {
 		var main = $(this);
-		var items = [];
+		var items = [], apiItems = {};
 		var mainHTML = '<div id="shop_items"><div class="shop_titlebar">TOOTED</div><ul id="shop_items_holder"></ul></div><div id="shop_cart"><div id="shop_title" class="shop_titlebar"><div id="cart_title">OSTUKORV</div><div id="pay">ORDER</div><div class="clear"></div></div><ul id="shop_cart_items"></ul><div id="shop_total"><div class="shop_titlebar">KOKKU</div><div class="shop_total"><span class="shop_total_text">0</span><span class="shop_total_currency"> €</span></div><div class="clear"></div></div> </div>';
 		var settings = $.extend({
 			width: 100,
@@ -109,6 +109,7 @@
 			
 			var url = hash == null ? 'items' : 'items/category/' + hash;
 			$.get(settings.api + url, function(data) {
+				apiItems = data;
 				if(data.length > 0)
 				{
 					$('#shop_items_holder').empty();
@@ -117,6 +118,23 @@
 					});
 				}
 			}, 'json');
+		};
+
+		function countArray(arr) {
+			var a = [], b = [], prev;
+
+			arr.sort();
+			for ( var i = 0; i < arr.length; i++ ) {
+				if ( arr[i] !== prev ) {
+					a.push(arr[i]);
+					b.push(1);
+				} else {
+					b[b.length-1]++;
+				}
+				prev = arr[i];
+			}
+
+			return [a, b];
 		};
 
 		$(window).on('hashchange', populateItems);
@@ -143,6 +161,25 @@
 
 		$(document).on('click', '#pay', function(e) {
 			toggleCheckout();
+		});
+
+		$(document).on('click', '#shop_action_order', function(e) {
+			var fields = {
+				checkout_customer_address: 'ASdas',
+				checkout_customer_mail: 'asdsa',
+				checkout_customer_name: 'asdsad',
+				checkout_customer_note: 'asdsa',
+				checkout_customer_phone: '12314'
+			};
+			$.post(settings.api + '/cart/add', fields, function(data) {
+				if(data.id !== null)
+				{
+					var cart = countArray(items);
+					$.each(cart[0], function(key, val) {
+						$.post(settings.api + '/cart/add', {item_id: val, cart_quantity: cart[1][key], checkout_id: data.id }, function(d) {}, 'json');
+					});
+				}
+			}, 'json');
 		});
 	}
 
