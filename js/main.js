@@ -20,11 +20,11 @@
 							'<div id="shop_checkout">' +
 								'<div id="shop_checkout_title" class="shop_titlebar">ORDER CHECKOUT <div class="cross" id="shop_checkout_close"></div><div class="clear"></div></div>' +
 								'<div id="shop_checkout_content"><ul id="shop_credidentials_list">' +
-									'<li><p>Name</p><input class="shop_input" type="text" placeholder="Example Customer" /></li>' +
-									'<li><p>E-mail</p><input class="shop_input" type="text" placeholder="customer@example.com" /></li>' +
-									'<li><p>Phone</p><input class="shop_input" type="text" placeholder="+372 133 713 37" /></li>' +
-									'<li><p>Shipping address</p><textarea class="shop_textarea" placeholder="Some address"></textarea></li>' +
-									'<li><p>Note to us</p><textarea class="shop_textarea" placeholder="Some info"></textarea></li>' +
+									'<li><p>Name</p><input class="shop_input" type="text" placeholder="Example Customer" id="_kohvishop_name" /></li>' +
+									'<li><p>E-mail</p><input class="shop_input" type="text" placeholder="customer@example.com" id="_kohvishop_email" /></li>' +
+									'<li><p>Phone</p><input class="shop_input" type="text" placeholder="+372 133 713 37" id="_kohvishop_phone" /></li>' +
+									'<li><p>Shipping address</p><textarea class="shop_textarea" placeholder="Some address" id="_kohvishop_address" ></textarea></li>' +
+									'<li><p>Note to us</p><textarea class="shop_textarea" placeholder="Some info" id="_kohvishop_info"></textarea></li>' +
 								'</ul><div class="clear"></div>' +
 								'<div id="shop_checkout_actions"><div id="shop_action_order" class="general_button">PLACE ORDER</div></div>' +
 								'<h1 id="shop_co_thanks">THANKS</h1>'
@@ -165,21 +165,30 @@
 
 		$(document).on('click', '#shop_action_order', function(e) {
 			var fields = {
-				checkout_customer_address: 'ASdas',
-				checkout_customer_mail: 'asdsa',
-				checkout_customer_name: 'asdsad',
-				checkout_customer_note: 'asdsa',
-				checkout_customer_phone: '12314'
+				checkout_customer_address: $('#_kohvishop_address').val(),
+				checkout_customer_mail: $('#_kohvishop_email').val(),
+				checkout_customer_name: $('#_kohvishop_name').val(),
+				checkout_customer_note: $('#_kohvishop_info').val(),
+				checkout_customer_phone: $('#_kohvishop_phone').val()
 			};
-			$.post(settings.api + '/cart/add', fields, function(data) {
-				if(data.id !== null)
-				{
-					var cart = countArray(items);
-					$.each(cart[0], function(key, val) {
-						$.post(settings.api + '/cart/add', {item_id: val, cart_quantity: cart[1][key], checkout_id: data.id }, function(d) {}, 'json');
-					});
-				}
-			}, 'json');
+			console.log(fields)
+			if(fields.checkout_customer_name !== '' && fields.checkout_customer_phone !== '' && 
+				fields.checkout_customer_address !== '' && fields.checkout_customer_mail !== '')
+			{
+				$.post(settings.api + '/cart/add', fields, function(data) {
+					if(data.id !== null)
+					{
+						var cart = countArray(items);
+						$.each(cart[0], function(key, val) {
+							$.get(settings.api + 'cart/item/add/' + [val, cart[1][key], data.id].join('/'), function(d) {}, 'json');
+						});
+					}
+				}, 'json');
+			}
+			else
+			{
+				console.log('empty')
+			}
 		});
 	}
 
