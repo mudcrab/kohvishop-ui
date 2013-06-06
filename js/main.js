@@ -171,7 +171,6 @@
 				checkout_customer_note: $('#_kohvishop_info').val(),
 				checkout_customer_phone: $('#_kohvishop_phone').val()
 			};
-			console.log(fields)
 			if(fields.checkout_customer_name !== '' && fields.checkout_customer_phone !== '' && 
 				fields.checkout_customer_address !== '' && fields.checkout_customer_mail !== '')
 			{
@@ -187,7 +186,12 @@
 			}
 			else
 			{
-				console.log('empty')
+				$('input[id^="_kohvishop_"]').each(function(key, _input) {
+					if($(_input).val() == "")
+						$(_input).addClass('input_flash')
+				});
+				if($('#_kohvishop_address').val() == "")
+					$('#_kohvishop_address').addClass('input_flash');
 			}
 		});
 	}

@@ -327,6 +327,9 @@ body {
 	margin: 5px 7px;
 	cursor: pointer;
 }
+.input_flash {
+	border-color: red;
+}
 
 .clear {
 	clear: both;
