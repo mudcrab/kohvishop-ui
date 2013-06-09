@@ -2,7 +2,7 @@
 	$.fn.kohvishop = function(options) {
 		var main = $(this);
 		var items = [], apiItems = {};
-		var mainHTML = '<div id="shop_items"><div class="shop_titlebar">TOOTED</div><ul id="shop_items_holder"></ul></div><div id="shop_cart"><div id="shop_title" class="shop_titlebar"><div id="cart_title">OSTUKORV</div><div id="pay">ORDER</div><div class="clear"></div></div><ul id="shop_cart_items"></ul><div id="shop_total"><div class="shop_titlebar">KOKKU</div><div class="shop_total"><span class="shop_total_text">0</span><span class="shop_total_currency"> €</span></div><div class="clear"></div></div> </div>';
+		var mainHTML = '<div id="shop_items"><div class="shop_titlebar">PRODUCTS</div><ul id="shop_items_holder"></ul></div><div id="shop_cart"><div id="shop_title" class="shop_titlebar"><div id="cart_title">CART</div><div id="pay">ORDER</div><div class="clear"></div></div><ul id="shop_cart_items"></ul><div id="shop_total"><div class="shop_titlebar">TOTAL</div><div class="shop_total"><span class="shop_total_text">0</span><span class="shop_total_currency"> €</span></div><div class="clear"></div></div> </div>';
 		var settings = $.extend({
 			width: 100,
 			height: 100,
@@ -14,6 +14,7 @@
 		main.append(mainHTML);
 		$('#shop_cart_items').height(settings.height - 100);
 		$('#shop_items_holder').height(settings.height - 50);
+
 
 		var toggleCheckout = function() {
 			var html = '<div id="shop_checkout_holder">' +
@@ -63,25 +64,23 @@
 		var addShopItem = function(title, description, price, id) {
 			var html = '<li class="shop_item">' +
 							'<div class="shop_item_pic"></div>' +
-							'<div class="shop_item_content">' +
-								'<div class="shop_item_content_texts">' +
-									'<h1>' + title + '</h1>' +
-									'<p>' + description + '</p>' +
+								'<div class="shop_item_content">' +
+									'<div class="shop_item_actions">' +
+										'<div class="shop_add_to_cart" data-id="' + id + '" data-title="' + title + '" data-price="' + price + '"><div class="shop_cart_img"></div></div>' +
+										'<div class="shop_item_price">' + price + ' ' + settings.currency + '</div>' +
+									'</div>' +
+									'<div class="shop_item_txt">' +
+										'<h1>' + title + '<div class="shop_show_hide"><div class="shop_show_hide_bgr shop_show_hide_down"></div></div><div class="clear"></div></h1>' +
+										'<p>' + description + '</p>' +
+									'</div>' +
+									'<div class="clear"></div>' +
 								'</div>' +
-								'<div class="shop_item_content_action">' +
-									'<span class="general_button">ROHKEM</span>' +
-								'</div>' +
-							'</div>' +
-							'<div class="shop_item_price">' +
-								'<div>' +
-									'<span class="shop_item_number">' + price + '</span>' +
-									'<span class="shop_item_currency">' + settings.currency + '</span>' +
-								'</div>' +
-								'<span class="general_button" data-id="' + id + '" data-title="' + title + '" data-price="' + price + '">LISA KORVI</span>' +
-							'</div>' +
 							'<div class="clear"></div>' +
-						'</li>';
+						'</li>'
+
 			$('#shop_items_holder').append(html);
+			$('.shop_item_txt').width($('.shop_item').width() - 40 - 232);
+			//$('.shop_item_content').width($('.shop_item').width() - $('.shop_item_pic').width() - $('.shop_item_price').width() - 30);
 		};
 
 		var updateTotal = function(price) {
@@ -122,7 +121,6 @@
 
 		function countArray(arr) {
 			var a = [], b = [], prev;
-
 			arr.sort();
 			for ( var i = 0; i < arr.length; i++ ) {
 				if ( arr[i] !== prev ) {
@@ -133,15 +131,19 @@
 				}
 				prev = arr[i];
 			}
-
 			return [a, b];
+		};
+
+		function handleResize() {
+			$('.shop_item_content').width($('.shop_item').width() - $('.shop_item_pic').width() - $('.shop_item_price').width() - 30);
 		};
 
 		$(window).on('hashchange', populateItems);
 
-		populateItems();
+		setTimeout(function(){populateItems()}, 100);
+		//populateItems();
 
-		$(document).on('click', '.shop_item .general_button', function() {
+		$(document).on('click', '.shop_add_to_cart', function() {
 			var data = $(this).data();
 			addToCart(data.title, data.id, data.price);
 			updateTotal(data.price);
@@ -161,6 +163,30 @@
 
 		$(document).on('click', '#pay', function(e) {
 			toggleCheckout();
+		});
+
+		$(document).on('click', '.shop_show_hide', function(e) {
+			/*var parent_ = $(this).parent().parent().parent();
+			var txt_ = $(this).parent().parent().find('.shop_item_content_txt');
+			txt_.height(txt_.find('p').height())
+			parent_.height( parent_.height() + (Math.abs(parent_.height() - txt_.height())) + 30 );*/
+			var parent = $(this).parent().parent().parent();
+			var item = parent.find('.shop_item_txt');
+			var p = parent.find('p');
+			var sh = parent.find('.shop_show_hide_bgr');
+
+			if(item.height() < p.height())
+			{
+				item.height(p.height())
+				sh.removeClass('shop_show_hide_down');
+				sh.addClass('shop_show_hide_up');
+			}
+			else if(item.height() == p.height())
+			{
+				item.height(140);
+				sh.removeClass('shop_show_hide_up');
+				sh.addClass('shop_show_hide_down');
+			}
 		});
 
 		$(document).on('click', '#shop_action_order', function(e) {
