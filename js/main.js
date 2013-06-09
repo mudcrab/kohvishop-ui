@@ -79,7 +79,8 @@
 						'</li>'
 
 			$('#shop_items_holder').append(html);
-			$('.shop_item_txt').width($('.shop_item').width() - 40 - 232);
+			
+			optimizeView()
 			//$('.shop_item_content').width($('.shop_item').width() - $('.shop_item_pic').width() - $('.shop_item_price').width() - 30);
 		};
 
@@ -119,6 +120,18 @@
 			}, 'json');
 		};
 
+		function optimizeView() {
+
+			if(settings.width < 700)
+			{
+				if(!$('#shop_cart').hasClass('shop_small_cart')) 
+					$('#shop_cart').addClass('shop_small_cart');
+
+				$('.shop_item_pic').addClass('shop_small_pictures');
+			}
+			$('.shop_item_txt').width($('.shop_item').width() - 40 - $('.shop_item_pic').first().width() - $('.shop_item_actions').width());
+		};
+
 		function countArray(arr) {
 			var a = [], b = [], prev;
 			arr.sort();
@@ -140,8 +153,8 @@
 
 		$(window).on('hashchange', populateItems);
 
+		// for some reason DOM would be populatd only with main html 50% of the time the page came up
 		setTimeout(function(){populateItems()}, 100);
-		//populateItems();
 
 		$(document).on('click', '.shop_add_to_cart', function() {
 			var data = $(this).data();
@@ -166,10 +179,6 @@
 		});
 
 		$(document).on('click', '.shop_show_hide', function(e) {
-			/*var parent_ = $(this).parent().parent().parent();
-			var txt_ = $(this).parent().parent().find('.shop_item_content_txt');
-			txt_.height(txt_.find('p').height())
-			parent_.height( parent_.height() + (Math.abs(parent_.height() - txt_.height())) + 30 );*/
 			var parent = $(this).parent().parent().parent();
 			var item = parent.find('.shop_item_txt');
 			var p = parent.find('p');

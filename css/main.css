@@ -90,7 +90,7 @@ body {
 #shop_cart {
 	float: right;
 	width: 30%;
-	min-width: 300px;
+	min-width: 100px;
 	height: 100%;
 	border-left: 1px solid #ddd;
 	background: #fff;
@@ -102,7 +102,7 @@ body {
 	font-weight: 600;
 }
 #shop_total {
-	min-width: 300px;
+	min-width: 100px;
 	border-top: 1px solid #ddd;
 	z-index: 10;
 	background: #fff;
@@ -114,6 +114,19 @@ body {
 	padding-top: 12px;
 	padding-right: 12px;
 }
+.shop_small_title {
+	
+}
+.shop_small_cart {
+	width: 179px !important;
+}
+.shop_small_products {
+
+}
+.shop_small_pictures {
+	width: 75px !important;
+	height: 75px !important;
+}
 .shop_total_text {
 
 }
@@ -121,7 +134,7 @@ body {
 	color: #ed145b;
 }
 #shop_title {
-	min-width: 300px;
+	min-width: 100px;
 	background: #fff;
 }
 #shop_total .shop_titlebar {
@@ -303,6 +316,7 @@ body {
 	overflow: hidden;
 	width: 100%;
 	background: #f3f3f3;
+	text-align: center;
 }
 #shop_checkout_actions {
 	padding: 6px;
@@ -347,29 +361,30 @@ body {
 	font-size: 0.9em;
 	text-transform: uppercase;
 	font-weight: 600;
+	text-align: left;
 }
 #shop_checkout_list_holder {
-/*	transition: all 0.5s;
-	-moz-transition: all 0.5s;
-	-ms-transition: all 0.5s;
-	-webkit-transition: all 0.5s;
-	-o-transition: all 0.5s;*/
 	width: 1280px;
 }
 .shop_input {
+	margin: auto;
 	border: 1px solid #ccc;
 	background: #fff;
-	width: 617px;
+	max-width: 617px;
+	width: 96%;
 	height: 20px;
 	padding: 5px;
+	text-align: left;
 }
 .shop_textarea {
 	border: 1px solid #ccc;
 	background: #fff;
-	width: 617px;
+	max-width: 617px;
+	width: 96%;
 	height: 60px;
 	padding: 5px;
 	resize: none;
+	text-align: left;
 }
 #shop_checkout_close {
 	float: right;
