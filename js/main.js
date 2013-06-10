@@ -4,17 +4,15 @@
 		var items = [], apiItems = {};
 		var mainHTML = '<div id="shop_items"><div class="shop_titlebar">PRODUCTS</div><ul id="shop_items_holder"></ul></div><div id="shop_cart"><div id="shop_title" class="shop_titlebar"><div id="cart_title">CART</div><div id="pay">ORDER</div><div class="clear"></div></div><ul id="shop_cart_items"></ul><div id="shop_total"><div class="shop_titlebar">TOTAL</div><div class="shop_total"><span class="shop_total_text">0</span><span class="shop_total_currency"> €</span></div><div class="clear"></div></div> </div>';
 		var settings = $.extend({
-			width: 100,
-			height: 100,
+			width: main.width(),
+			height: main.height(),
 			api: 'http://localhost/',
 			currency: '€',
 		}, options);
 		var hash = null;
 		var checkout_visible = false;
-		main.append(mainHTML);
-		$('#shop_cart_items').height(settings.height - 100);
-		$('#shop_items_holder').height(settings.height - 50);
-
+		
+		init();
 
 		var toggleCheckout = function() {
 			var html = '<div id="shop_checkout_holder">' +
@@ -35,6 +33,9 @@
 			{
 				main.append(html);
 				var e = $('#shop_checkout');
+				if(settings.height < 700) 
+					e.css('height', '98%');
+				
 				e.css({ marginLeft: -(e.width() / 2), marginTop: -(e.height() / 2) });
 				$('#shop_credidentials_list').height(e.height() - 100);
 				checkout_visible = true;
@@ -153,9 +154,6 @@
 
 		$(window).on('hashchange', populateItems);
 
-		// for some reason DOM would be populatd only with main html 50% of the time the page came up
-		setTimeout(function(){populateItems()}, 100);
-
 		$(document).on('click', '.shop_add_to_cart', function() {
 			var data = $(this).data();
 			addToCart(data.title, data.id, data.price);
@@ -229,9 +227,22 @@
 					$('#_kohvishop_address').addClass('input_flash');
 			}
 		});
+		
+		function init() {
+			main.append(mainHTML);
+			console.log(settings.height);
+			$('#shop_cart_items').height(settings.height - 100);
+			$('#shop_items_holder').height(settings.height - 50);
+			// for some reason DOM would be populatd only with main html 50% of the time the page came up
+			setTimeout(function(){populateItems()}, 100);
+		};
+
 	}
 
 })(jQuery);
-$(function() {
-	$(kohvishop_tag).kohvishop({ width: 1280, height: 800, api: kohvishop_api, img: kohvishop_img });
-});
+if(kohvishop_tag !== 'undefined' && kohvishop_tag !== '' && kohvishop_api !== 'undefined' && kohvishop_api !== '' && kohvishop_img !== 'undefined' && kohvishop_img !== '')
+{
+	$(function() {
+		$(kohvishop_tag).kohvishop({ api: kohvishop_api, img: kohvishop_img });
+	});
+}
