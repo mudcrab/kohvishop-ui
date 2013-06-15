@@ -8,6 +8,7 @@
 			height: main.height(),
 			api: 'http://localhost/',
 			currency: '€',
+			img: 'http://localhost/img/'
 		}, options);
 		var hash = null;
 		var checkout_visible = false;
@@ -64,7 +65,7 @@
 
 		var addShopItem = function(title, description, price, id) {
 			var html = '<li class="shop_item">' +
-							'<div class="shop_item_pic"></div>' +
+							'<div class="shop_item_pic"><img src="' + settings.img + id + '.png"></div>' +
 								'<div class="shop_item_content">' +
 									'<div class="shop_item_actions">' +
 										'<div class="shop_add_to_cart" data-id="' + id + '" data-title="' + title + '" data-price="' + price + '"><div class="shop_cart_img"></div></div>' +

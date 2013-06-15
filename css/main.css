@@ -126,7 +126,7 @@ body {
 .shop_small_products {
 
 }
-.shop_small_pictures {
+.shop_small_pictures, .shop_small_pictures img {
 	width: 75px !important;
 	height: 75px !important;
 }
@@ -191,6 +191,10 @@ body {
 	height: 150px;
 	float: left;
 	border: 1px solid #ddd;
+}
+.shop_item_pic img {
+	width: 150px;
+	height: 150px;
 }
 .shop_item_content {
 	float: left;
