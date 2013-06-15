@@ -87,6 +87,9 @@ body {
 	width: 69.9%;
 	height: 100%;
 }
+#shop_items .shop_titlebar {
+	height: 25px;
+}
 #shop_cart {
 	float: right;
 	width: 30%;
@@ -285,7 +288,9 @@ body {
 }
 #pay {
 	float: right;
-	color: #ed145b;
+	color: #fff;
+	background: #ed145b;
+	padding: 0px 5px;
 	display: none;
 	cursor: pointer;
 }
@@ -326,11 +331,12 @@ body {
 	text-align: center;
 }
 #shop_action_order {
-	border-color: #b8b6b6;
-	background: #e6e6e6;
+	background: #ed145b;
+	color: #fff;
+	font-weight: 600;
 }
 #shop_action_order:hover {
-	background: #ededed;
+	background: red;
 }
 #shop_co_thanks {
 	position: absolute;
