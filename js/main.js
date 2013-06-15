@@ -164,6 +164,12 @@
 		$(document).on('click', '.shop_cart_item_action', function(e) {
 			var data = $(this).parent().data();
 			updateTotal(-data.price);
+			$.each(items, function(i, item) {
+				if(item == data.id) {
+					items.splice(items.indexOf(item), 1);
+					return false;
+				}
+			});
 			$(this).parent().remove();
 			updatePadding();
 		});
