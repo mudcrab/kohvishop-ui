@@ -230,7 +230,16 @@
 		
 		function init() {
 			main.append(mainHTML);
-			console.log(settings.height);
+			if(settings.height < 500)
+			{
+				settings.height = 500;
+				main.height(500);
+			}
+			if(settings.width < 600)
+			{
+				settings.width = 600;
+				main.width(600);
+			}
 			$('#shop_cart_items').height(settings.height - 100);
 			$('#shop_items_holder').height(settings.height - 50);
 			// for some reason DOM would be populatd only with main html 50% of the time the page came up
