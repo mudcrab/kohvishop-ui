@@ -2,7 +2,7 @@
 	$.fn.kohvishop = function(options) {
 		var main = $(this);
 		var items = [], apiItems = {};
-		var mainHTML = '<div id="shop_items"><div class="shop_titlebar">PRODUCTS</div><ul id="shop_items_holder"></ul></div><div id="shop_cart"><div id="shop_title" class="shop_titlebar"><div id="cart_title">CART</div><div id="pay">ORDER</div><div class="clear"></div></div><ul id="shop_cart_items"></ul><div id="shop_total"><div class="shop_titlebar">TOTAL</div><div class="shop_total"><span class="shop_total_text">0</span><span class="shop_total_currency"> €</span></div><div class="clear"></div></div> </div>';
+		var mainHTML = '<div id="shop_items"><div class="shop_titlebar"></div><ul id="shop_items_holder"></ul></div><div id="shop_cart"><div id="shop_title" class="shop_titlebar"><div id="cart_title">OSTUKORV</div><div id="pay">TELLI</div><div class="clear"></div></div><ul id="shop_cart_items"></ul><div id="shop_total"><div class="shop_titlebar">KOKKU</div><div class="shop_total"><span class="shop_total_text">0</span><span class="shop_total_currency"> €</span></div><div class="clear"></div></div> </div>';
 		var settings = $.extend({
 			width: main.width(),
 			height: main.height(),
@@ -17,15 +17,15 @@
 		var toggleCheckout = function() {
 			var html = '<div id="shop_checkout_holder">' +
 							'<div id="shop_checkout">' +
-								'<div id="shop_checkout_title" class="shop_titlebar">ORDER CHECKOUT <div class="cross" id="shop_checkout_close"></div><div class="clear"></div></div>' +
+								'<div id="shop_checkout_title" class="shop_titlebar">TELLIMINE <div class="cross" id="shop_checkout_close"></div><div class="clear"></div></div>' +
 								'<div id="shop_checkout_content"><ul id="shop_credidentials_list">' +
-									'<li><p>Name</p><input class="shop_input" type="text" placeholder="Example Customer" id="_kohvishop_name" /></li>' +
-									'<li><p>E-mail</p><input class="shop_input" type="text" placeholder="customer@example.com" id="_kohvishop_email" /></li>' +
-									'<li><p>Phone</p><input class="shop_input" type="text" placeholder="+372 133 713 37" id="_kohvishop_phone" /></li>' +
-									'<li><p>Shipping address</p><textarea class="shop_textarea" placeholder="Some address" id="_kohvishop_address" ></textarea></li>' +
-									'<li><p>Note to us</p><textarea class="shop_textarea" placeholder="Some info" id="_kohvishop_info"></textarea></li>' +
+									'<li><p>Nimi</p><input class="shop_input" type="text" placeholder="Sinu Nimi" id="_kohvishop_name" /></li>' +
+									'<li><p>E-mail</p><input class="shop_input" type="text" placeholder="sinu.nimi@example.com" id="_kohvishop_email" /></li>' +
+									'<li><p>Telefon</p><input class="shop_input" type="text" placeholder="+372 133 713 37" id="_kohvishop_phone" /></li>' +
+									'<li><p>Postiaadress</p><textarea class="shop_textarea" placeholder="" id="_kohvishop_address" ></textarea></li>' +
+									'<li><p>Märkused</p><textarea class="shop_textarea" placeholder="" id="_kohvishop_info"></textarea></li>' +
 								'</ul><div class="clear"></div>' +
-								'<div id="shop_checkout_actions"><div id="shop_action_order" class="general_button">PLACE ORDER</div></div>' +
+								'<div id="shop_checkout_actions"><div id="shop_action_order" class="general_button">TELLI!</div></div>' +
 								'<h1 id="shop_co_thanks">THANKS</h1>'
 							'</div>' +
 						'</div>';
