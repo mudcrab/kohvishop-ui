@@ -4,10 +4,7 @@
 		var items = [], apiItems = {};
 		var mainHTML = '<div class="shop_titlebar"><span id="back">TAGASI</span><span class="shop_total_text">0</span><span> €</span><span id="pay" style="float: right;">OSTUKORV</span><div class="clear"></div></div>' + 
 						'<div id="kohvishop_content"><ul id="shop_items_holder"></ul>' +
-						'<ul id="shop_cart_items"></ul></div>' +
-
-						'';
-		//var mainHTML = '<div id="shop_items"><div class="shop_titlebar"></div><ul id="shop_items_holder"></ul></div><div id="shop_cart"><div id="shop_title" class="shop_titlebar"><div id="cart_title">OSTUKORV</div><div id="pay">TELLI</div><div class="clear"></div></div><ul id="shop_cart_items"></ul><div id="shop_total"><div class="shop_titlebar">KOKKU</div><div class="shop_total"><span class="shop_total_text">0</span><span class="shop_total_currency"> €</span></div><div class="clear"></div></div> </div>';
+						'<ul id="shop_cart_items"></ul></div>';
 		var settings = $.extend({
 			width: main.width(),
 			height: main.height(),
@@ -37,6 +34,11 @@
 			view = 'products';
 		};
 
+		var resetShop = function() {
+			main.empty();
+			init();
+		};
+
 		var toggleCheckout = function() {
 			var html = '<div id="shop_checkout_holder">' +
 							'<div id="shop_checkout">' +
@@ -56,10 +58,6 @@
 			{
 				main.append(html);
 				var e = $('#shop_checkout');
-				if(settings.height < 700) 
-					e.css('height', '98%');
-				
-				e.css({ marginLeft: -(e.width() / 2), marginTop: -(e.height() / 2) });
 				$('#shop_credidentials_list').height(e.height() - 100);
 				checkout_visible = true;
 			}
@@ -103,9 +101,7 @@
 						'</li>'
 
 			$('#shop_items_holder').append(html);
-			
-			optimizeView()
-			//$('.shop_item_content').width($('.shop_item').width() - $('.shop_item_pic').width() - $('.shop_item_price').width() - 30);
+			optimizeView();
 		};
 
 		var updateTotal = function(price) {
@@ -249,6 +245,12 @@
 						var cart = countArray(items);
 						$.each(cart[0], function(key, val) {
 							$.get(settings.api + 'cart/item/add/' + [val, cart[1][key], data.id].join('/'), function(d) {}, 'json');
+							if((cart[0].length - 1) == key) {
+								$.get(settings.api + 'cart/co/' + data.id, function(done) {
+									$('#shop_co_thanks').show();
+									setTimeout(function () { resetShop(); }, 3000);
+								});
+							}
 						});
 					}
 				}, 'json');
@@ -281,14 +283,12 @@
 			$('#shop_cart_items').height(settings.height - 50);
 			$('#shop_items_holder').height(settings.height - 50);
 
-			//$('#shop_items_holder').width(500);
-			//$('#shop_cart_items').width(50);
-			// for some reason DOM would be populatd only with main html 50% of the time the page came up
+			var items = [];
+			var checkout_visible = false;
+			var view = 'products';
 			setTimeout(function(){populateItems()}, 100);
 		};
-
 	}
-
 })(jQuery);
 if(kohvishop_tag !== 'undefined' && kohvishop_tag !== '' && kohvishop_api !== 'undefined' && kohvishop_api !== '' && kohvishop_img !== 'undefined' && kohvishop_img !== '')
 {
