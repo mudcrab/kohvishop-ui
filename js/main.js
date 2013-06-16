@@ -2,7 +2,12 @@
 	$.fn.kohvishop = function(options) {
 		var main = $(this);
 		var items = [], apiItems = {};
-		var mainHTML = '<div id="shop_items"><div class="shop_titlebar"></div><ul id="shop_items_holder"></ul></div><div id="shop_cart"><div id="shop_title" class="shop_titlebar"><div id="cart_title">OSTUKORV</div><div id="pay">TELLI</div><div class="clear"></div></div><ul id="shop_cart_items"></ul><div id="shop_total"><div class="shop_titlebar">KOKKU</div><div class="shop_total"><span class="shop_total_text">0</span><span class="shop_total_currency"> €</span></div><div class="clear"></div></div> </div>';
+		var mainHTML = '<div class="shop_titlebar"><span id="back">TAGASI</span><span class="shop_total_text">0</span><span> €</span><span id="pay" style="float: right;">OSTUKORV</span><div class="clear"></div></div>' + 
+						'<div id="kohvishop_content"><ul id="shop_items_holder"></ul>' +
+						'<ul id="shop_cart_items"></ul></div>' +
+
+						'';
+		//var mainHTML = '<div id="shop_items"><div class="shop_titlebar"></div><ul id="shop_items_holder"></ul></div><div id="shop_cart"><div id="shop_title" class="shop_titlebar"><div id="cart_title">OSTUKORV</div><div id="pay">TELLI</div><div class="clear"></div></div><ul id="shop_cart_items"></ul><div id="shop_total"><div class="shop_titlebar">KOKKU</div><div class="shop_total"><span class="shop_total_text">0</span><span class="shop_total_currency"> €</span></div><div class="clear"></div></div> </div>';
 		var settings = $.extend({
 			width: main.width(),
 			height: main.height(),
@@ -12,8 +17,25 @@
 		}, options);
 		var hash = null;
 		var checkout_visible = false;
-		
+		var view = 'products';
+		main.css('overflow', 'hidden');
 		init();
+
+		var showCart = function() {
+			$('#kohvishop_content').css('margin-top', ('-' + 450 + 'px'));
+			$('#shop_items_holder').css('visibility', 'hidden');
+			$('#back').fadeIn();
+			$('#pay').css('background', '#ed145b').html('TELLI');
+			view = 'cart';
+		};
+
+		var hideCart = function() {
+			$('#kohvishop_content').css('margin-top', ('0px'));
+			$('#shop_items_holder').css('visibility', 'visible');
+			$('#back').fadeOut();
+			$('#pay').css('background', '#dfd76f').html('OSTUKORV');
+			view = 'products';
+		};
 
 		var toggleCheckout = function() {
 			var html = '<div id="shop_checkout_holder">' +
@@ -180,7 +202,14 @@
 		});
 
 		$(document).on('click', '#pay', function(e) {
-			toggleCheckout();
+			if(view == 'products')
+				showCart();
+			else if(view == 'cart')
+				toggleCheckout();
+		});
+
+		$(document).on('click', '#back', function(e) {
+			hideCart();
 		});
 
 		$(document).on('click', '.shop_show_hide', function(e) {
@@ -241,14 +270,19 @@
 			{
 				settings.height = 500;
 				main.height(500);
+				$('#kohvishop_content').height(settings.height * 2);
 			}
 			if(settings.width < 600)
 			{
 				settings.width = 600;
 				main.width(600);
+				$('#kohvishop_content').width(settings.width);
 			}
-			$('#shop_cart_items').height(settings.height - 100);
+			$('#shop_cart_items').height(settings.height - 50);
 			$('#shop_items_holder').height(settings.height - 50);
+
+			//$('#shop_items_holder').width(500);
+			//$('#shop_cart_items').width(50);
 			// for some reason DOM would be populatd only with main html 50% of the time the page came up
 			setTimeout(function(){populateItems()}, 100);
 		};

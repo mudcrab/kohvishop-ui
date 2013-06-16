@@ -82,6 +82,9 @@ body {
 	
 	
 }
+#kohvishop_content {
+	overflow: hidden;
+}
 #shop_items {
 	float: left;
 	width: 69.9%;
@@ -291,18 +294,25 @@ body {
 	float: left;
 }
 #pay {
-	float: right;
+	/*float: right;*/
 	color: #fff;
-	background: #ed145b;
+	background: #dfd76f;
 	padding: 0px 5px;
 	display: none;
 	cursor: pointer;
+}
+#back {
+	color: #fff;
+	background: #83e3a3;
+	padding: 0px 5px;
+	display: none;
+	cursor: pointer;
+	margin-right: 5px;
 }
 .unpadded {
 	padding-left: 0px;
 }
 #shop_checkout_holder {
-	position: absolute;
 	width: 100%;
 	height: 100%;
 	background: rgba(81, 81, 81, 0.2);
