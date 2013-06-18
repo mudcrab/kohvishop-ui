@@ -313,7 +313,7 @@
 		
 		function init() {
 			main.append(mainHTML);
-			if(settings.height < 500)
+			if(settings.height < 100)
 			{
 				settings.height = 500;
 				main.height(500);
