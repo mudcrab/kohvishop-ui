@@ -83,13 +83,12 @@
 			items.push(id);
 		};
 
-		var addShopItem = function(title, description, price, id) {
+		var addShopItem = function(title, description, price, quantity, id) {
 			var html = '<li class="shop_item">' +
-							'<div class="shop_item_pic"></div>' +
+							'<div class="shop_item_pic"><div class="shop_item_price">' + price + ' ' + settings.currency + '</div></div>' +
 								'<div class="shop_item_content">' +
 									'<div class="shop_item_actions">' +
-										'<div class="shop_add_to_cart" data-id="' + id + '" data-title="' + title + '" data-price="' + price + '"><div class="shop_cart_img"></div></div>' +
-										'<div class="shop_item_price">' + price + ' ' + settings.currency + '</div>' +
+										'<div class="shop_add_to_cart" data-id="' + id + '" data-title="' + title + '" data-price="' + price + '" data-quantity="' + quantity + '"><div class="shop_cart_img"></div></div>' +
 									'</div>' +
 									'<div class="shop_item_txt">' +
 										'<h1>' + title + '<div class="shop_show_hide"><div class="shop_show_hide_bgr shop_show_hide_down"></div></div><div class="clear"></div></h1>' +
@@ -135,7 +134,7 @@
 					$('#shop_items_holder').empty();
 					$.each(data, function(index, item) {
 						if(item.quantity > 0)
-							addShopItem(item.name, item.description, item.price, item.id);
+							addShopItem(item.name, item.description, item.price, item.quantity, item.id);
 					});
 				}
 			}, 'json');
@@ -181,9 +180,17 @@
 			$.get(settings.api + '/items/item/' + data.id, function(item) {
 				if(item.quantity > 0)
 				{
-					addToCart(data.title, data.id, data.price);
-					updateTotal(data.price);
-					updatePadding();
+					var cart = countArray(items);
+					if(typeof cart[1][cart[0].indexOf(data.id)] == 'undefined' || cart[1][cart[0].indexOf(data.id)] < data.quantity)
+					{
+						addToCart(data.title, data.id, data.price);
+						updateTotal(data.price);
+						updatePadding();
+					}
+					else
+					{
+						alert('Eelmine oli viimane')
+					}
 				}
 				else
 				{
@@ -268,7 +275,7 @@
 										$.each(cart[0], function(key, val) {
 											$.get(settings.api + 'cart/item/add/' + [val, cart[1][key], data.id].join('/'), function(d) {}, 'json');
 											if((cart[0].length - 1) == key) {
-												$.get(settings.api + 'cart/co/' + data.id, function(done) { console.log(done) });
+												$.get(settings.api + 'cart/co/' + data.id, function(done) {  });
 												$('#shop_co_thanks').show();
 												setTimeout(function () { resetShop(); }, 3000);
 											}
