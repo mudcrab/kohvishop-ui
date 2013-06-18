@@ -113,7 +113,7 @@
 	overflow: auto;
 }
 .shop_item {
-	min-height: 150px;
+	min-height: 100px;
 	margin: 20px;
 	border-bottom: 1px solid #ddd;
 	padding-bottom: 20px;
@@ -122,7 +122,6 @@
 	width: 150px;
 	height: 150px;
 	float: left;
-	border: 1px solid #ddd;
 }
 .shop_item_pic img {
 	width: 150px;
@@ -139,7 +138,7 @@
 .shop_item_txt {
 	float: left;
 	width: 300px;
-	height: 140px;
+	height: 80px;
 	overflow: hidden;
 }
 .shop_show_hide_up {
@@ -190,7 +189,6 @@
 }
 .shop_item_price {
 	text-align: center;
-	color: #4f4f4f;
 	font-size: 1.8em;
 	padding-top: 20px;
 }
