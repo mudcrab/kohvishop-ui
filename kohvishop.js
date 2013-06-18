@@ -19,7 +19,7 @@
 		init();
 
 		var showCart = function() {
-			$('#kohvishop_content').css('margin-top', ('-' + 450 + 'px'));
+			$('#kohvishop_content').css('margin-top', ('-' + (settings.height - 50) + 'px'));
 			$('#shop_items_holder').css('visibility', 'hidden');
 			$('#back').fadeIn();
 			$('#pay').css('background', '#ed145b').html('TELLI');
