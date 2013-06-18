@@ -85,7 +85,7 @@
 
 		var addShopItem = function(title, description, price, id) {
 			var html = '<li class="shop_item">' +
-							'<div class="shop_item_pic"><img src="' + settings.img + id + '.png"></div>' +
+							'<div class="shop_item_pic"></div>' +
 								'<div class="shop_item_content">' +
 									'<div class="shop_item_actions">' +
 										'<div class="shop_add_to_cart" data-id="' + id + '" data-title="' + title + '" data-price="' + price + '"><div class="shop_cart_img"></div></div>' +
@@ -175,9 +175,21 @@
 
 		$(document).on('click', '.shop_add_to_cart', function() {
 			var data = $(this).data();
-			addToCart(data.title, data.id, data.price);
-			updateTotal(data.price);
-			updatePadding();
+
+			var e = $(this).parent().parent().parent();
+			$.get(settings.api + '/items/item/' + data.id, function(item) {
+				if(item.quantity > 0)
+				{
+					addToCart(data.title, data.id, data.price);
+					updateTotal(data.price);
+					updatePadding();
+				}
+				else
+				{
+					alert('Kahjuks müüdi just viimane!');
+					e.remove();
+				}
+			}, 'json');
 		});
 
 		$(document).on('click', '.shop_cart_item_action', function(e) {
@@ -243,14 +255,26 @@
 					if(data.id !== null)
 					{
 						var cart = countArray(items);
-						$.each(cart[0], function(key, val) {
-							$.get(settings.api + 'cart/item/add/' + [val, cart[1][key], data.id].join('/'), function(d) {}, 'json');
-							if((cart[0].length - 1) == key) {
-								$.get(settings.api + 'cart/co/' + data.id, function(done) {
-									$('#shop_co_thanks').show();
-									setTimeout(function () { resetShop(); }, 3000);
-								});
-							}
+						var temp = [];
+
+						$.each(cart[0], function(k, v) {
+							$.get(settings.api + '/items/item/' + v, function(item_) {
+								if(item_.quantity > 0)
+								{
+									temp.push(v)
+									if(temp.length == cart[0].length)
+									{
+										$.each(cart[0], function(key, val) {
+											$.get(settings.api + 'cart/item/add/' + [val, cart[1][key], data.id].join('/'), function(d) {}, 'json');
+											if((cart[0].length - 1) == key) {
+												$.get(settings.api + 'cart/co/' + data.id, function(done) { console.log(done) });
+												$('#shop_co_thanks').show();
+												setTimeout(function () { resetShop(); }, 3000);
+											}
+										});
+									}
+								}
+							}, 'json');
 						});
 					}
 				}, 'json');
@@ -264,7 +288,20 @@
 				if($('#_kohvishop_address').val() == "")
 					$('#_kohvishop_address').addClass('input_flash');
 			}
+
 		});
+
+		function processCheckout(cart) {
+			console.log('processing')
+			$.each(cart[0], function(key, val) {
+				$.get(settings.api + 'cart/item/add/' + [val, cart[1][key], data.id].join('/'), function(d) {}, 'json');
+				if((cart[0].length - 1) == key) {
+					$.get(settings.api + 'cart/co/' + data.id, function(done) { console.log(done) });
+					$('#shop_co_thanks').show();
+					setTimeout(function () { resetShop(); }, 3000);
+				}
+			});
+		};
 		
 		function init() {
 			main.append(mainHTML);
