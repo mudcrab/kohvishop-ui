@@ -2,7 +2,7 @@
 	$.fn.kohvishop = function(options) {
 		var main = $(this);
 		var items = [], apiItems = {};
-		var mainHTML = '<div class="shop_titlebar"><span id="back">TAGASI</span><span class="shop_total_text">0</span><span> €</span><span id="pay" style="float: right;">OSTUKORV</span><div class="clear"></div></div>' + 
+		var mainHTML = '<div class="shop_titlebar"><span id="back">TAGASI</span><span class="shop_total_text">0</span><span> €</span><span id="pay" style="float: right;">OSTUKORV</span><div class="clear"></div></div>' +
 						'<div id="kohvishop_content"><ul id="shop_items_holder"></ul>' +
 						'<ul id="shop_cart_items"></ul></div>';
 		var settings = $.extend({
@@ -41,6 +41,7 @@
 
 		var toggleCheckout = function() {
 			var html = '<div id="shop_checkout_holder">' +
+							'<h1 id="shop_co_thanks">Tellimus esitatud. Aitäh!</h1>' +
 							'<div id="shop_checkout">' +
 								'<div id="shop_checkout_title" class="shop_titlebar">TELLIMINE <div class="cross" id="shop_checkout_close"></div><div class="clear"></div></div>' +
 								'<div id="shop_checkout_content"><ul id="shop_credidentials_list">' +
@@ -48,10 +49,9 @@
 									'<li><p>E-mail</p><input class="shop_input" type="text" placeholder="sinu.nimi@example.com" id="_kohvishop_email" /></li>' +
 									'<li><p>Telefon</p><input class="shop_input" type="text" placeholder="+372 133 713 37" id="_kohvishop_phone" /></li>' +
 									'<li><p>Postiaadress</p><textarea class="shop_textarea" placeholder="" id="_kohvishop_address" ></textarea></li>' +
-									'<li><p>Märkused</p><textarea class="shop_textarea" placeholder="" id="_kohvishop_info"></textarea></li>' +
+									'<li><p><br />Arve ja muu maksmiseks vajalik info saadetakse peale tellimuse esitamist Teile e-mailile!</p></li>' +
 								'</ul><div class="clear"></div>' +
 								'<div id="shop_checkout_actions"><div id="shop_action_order" class="general_button">TELLI!</div></div>' +
-								'<h1 id="shop_co_thanks">THANKS</h1>'
 							'</div>' +
 						'</div>';
 			if(!checkout_visible)
@@ -144,7 +144,7 @@
 
 			if(settings.width < 700)
 			{
-				if(!$('#shop_cart').hasClass('shop_small_cart')) 
+				if(!$('#shop_cart').hasClass('shop_small_cart'))
 					$('#shop_cart').addClass('shop_small_cart');
 
 				$('.shop_item_pic').addClass('shop_small_pictures');
@@ -256,7 +256,7 @@
 				checkout_customer_note: $('#_kohvishop_info').val(),
 				checkout_customer_phone: $('#_kohvishop_phone').val()
 			};
-			if(fields.checkout_customer_name !== '' && fields.checkout_customer_phone !== '' && 
+			if(fields.checkout_customer_name !== '' && fields.checkout_customer_phone !== '' &&
 				fields.checkout_customer_address !== '' && fields.checkout_customer_mail !== '')
 			{
 				$.post(settings.api + '/cart/add', fields, function(data) {
@@ -276,8 +276,9 @@
 											$.get(settings.api + 'cart/item/add/' + [val, cart[1][key], data.id].join('/'), function(d) {}, 'json');
 											if((cart[0].length - 1) == key) {
 												$.get(settings.api + 'cart/co/' + data.id, function(done) {  });
+												$('#shop_checkout').hide();
 												$('#shop_co_thanks').show();
-												setTimeout(function () { resetShop(); }, 3000);
+												setTimeout(function () { location.reload(); }, 3000);
 											}
 										});
 									}
@@ -310,7 +311,7 @@
 				}
 			});
 		};
-		
+
 		function init() {
 			main.append(mainHTML);
 			if(settings.height < 100)
