@@ -134,7 +134,8 @@
 				{
 					$('#shop_items_holder').empty();
 					$.each(data, function(index, item) {
-						addShopItem(item.name, item.description, item.price, item.id);
+						if(item.quantity > 0)
+							addShopItem(item.name, item.description, item.price, item.id);
 					});
 				}
 			}, 'json');
