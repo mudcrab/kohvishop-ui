@@ -259,6 +259,7 @@
 			if(fields.checkout_customer_name !== '' && fields.checkout_customer_phone !== '' &&
 				fields.checkout_customer_address !== '' && fields.checkout_customer_mail !== '')
 			{
+				$(this).hide();
 				$.post(settings.api + '/cart/add', fields, function(data) {
 					if(data.id !== null)
 					{
