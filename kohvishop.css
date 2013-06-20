@@ -13,6 +13,7 @@
 }
 #kohvishop_content {
 	overflow: hidden;
+	position: absolute\9;
 }
 #shop_items {
 	float: left;
@@ -50,7 +51,7 @@
 	padding-right: 12px;
 }
 .shop_small_title {
-	
+
 }
 .shop_small_cart {
 	width: 179px !important;
