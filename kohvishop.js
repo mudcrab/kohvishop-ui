@@ -264,16 +264,15 @@
 					{
 						var cart = countArray(items);
 						var temp = [];
-
 						$.each(cart[0], function(k, v) {
-							$.get(settings.api + '/items/item/' + v, function(item_) {
+							$.ajax( { url: settings.api + 'items/item/' + v, async: false } ).done(function(item_) {
 								if(item_.quantity > 0)
 								{
 									temp.push(v)
 									if(temp.length == cart[0].length)
 									{
 										$.each(cart[0], function(key, val) {
-											$.get(settings.api + 'cart/item/add/' + [val, cart[1][key], data.id].join('/'), function(d) {}, 'json');
+											$.ajax( { url: settings.api + 'cart/item/add/' + [val, cart[1][key], data.id].join('/'), async: false }).done(function() {});
 											if((cart[0].length - 1) == key) {
 												$.get(settings.api + 'cart/co/' + data.id, function(done) {  });
 												$('#shop_checkout').hide();
@@ -283,7 +282,7 @@
 										});
 									}
 								}
-							}, 'json');
+							});
 						});
 					}
 				}, 'json');
